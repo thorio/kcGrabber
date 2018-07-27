@@ -2,7 +2,7 @@
 // @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
 // @version				1.0
-// @description		gets openload links from kimcartoon.me | based on my kissanime script, visit my GitHub page to check it out!
+// @description		gets openload links from kimcartoon.me | based on my kissanime script, check it out!
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kaGrabber/
 // @updateURL			https://github.com/thorio/kaGrabber/raw/master/kaGrabber.user.js
