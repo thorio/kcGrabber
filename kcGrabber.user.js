@@ -52,7 +52,7 @@
 				listingTable.children[i].prepend(tableNum2);
 				var currentItem = listingTable.children[i].children[1];
 				var currentEpisodeName = currentItem.children[0].innerText;
-				var addedHTML = '<input type="button" value="grab" style="background-color: #527701; color: #ffffff; border: none; cursor: pointer;" onclick="KAstart(' + (episodeCount - i + 2) + ',' + (episodeCount - i + 2) + ')">&nbsp;'
+				var addedHTML = '<input type="button" value="grab" style="background-color: #ecbe35; color: #000; border: none; cursor: pointer;" onclick="KAstart(' + (episodeCount - i + 2) + ',' + (episodeCount - i + 2) + ')">&nbsp;'
 				currentItem.innerHTML = addedHTML + currentItem.innerHTML;
 			}
 		}
