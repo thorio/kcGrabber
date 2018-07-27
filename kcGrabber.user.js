@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name					Kissanime Link Grabber
+// @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
-// @version				1.3
-// @description		gets openload links from kissanime.ru
+// @version				1.0
+// @description		gets openload links from kimcartoon.me | based on my kissanime script, visit my GitHub page to check it out!
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kaGrabber/
 // @updateURL			https://github.com/thorio/kaGrabber/raw/master/kaGrabber.user.js
 // @downloadURL		https://github.com/thorio/kaGrabber/raw/master/kaGrabber.user.js
-// @match					http://kissanime.ru/*
+// @match					http://kimcartoon.me/*
 // @match					https://openload.co/embed/*
 // ==/UserScript==
 //
@@ -22,13 +22,13 @@
 
 	function inject() {
 		//add UI elements
-		if (window.location.href.substring(0, 26) == "http://kissanime.ru/Anime/" && document.getElementsByClassName("barTitle").length > 0) {
+		if (window.location.href.substring(0, 29) == "http://kimcartoon.me/Cartoon/" && document.getElementsByClassName("bigBarContainer").length > 1) {
 			//grabber widget
 			var grabberUIBox = document.createElement("div");
 			grabberUIBox.id = "grabberUIBox";
 			grabberUIBox.innerHTML = optsHTML; //HTML below; grabber widget
 			var rightside = document.getElementById("rightside");
-			rightside.insertBefore(grabberUIBox, rightside.children[2]); //insert grabber widget into rightside container
+			rightside.insertBefore(grabberUIBox, rightside.children[4]); //insert grabber widget into rightside container
 			var episodeCount = document.getElementsByClassName("listing")[0].children[0].children.length - 2;
 			document.getElementById("grabberTo").value = episodeCount; //set min and max for the episode selectors
 			document.getElementById("grabberTo").max = episodeCount;
@@ -66,22 +66,19 @@
 	//if you have a solution for including extra files that are updated when the script is reinstalled please let me know through GitHub
 
 	//the grabber widget injected into the page
-	var optsHTML = `<div class="rightBox">
-	<div class="barTitle">
-		Batch Grabber
+	var optsHTML = `<span class="title-list icon">Batch Grabber</span>
+	<div class="clear2">
 	</div>
+	<div class="rightBox">
 	<div class="barContent">
-		<div class="arrow-general">
-			&nbsp;
-		</div>
 		from
 		<input type="number" id="grabberFrom" value=1 min=1 style="width: 40px; border: 1px solid #666666; background: #393939; padding: 3px; color: #ffffff;"> to
 		<input type="number" id="grabberTo" value=1 min=1 style="width: 40px; border: 1px solid #666666; background: #393939; padding: 3px; color: #ffffff;">
 		<br>
 		<br>
 		<div style="height: 28px;">
-			<input type="button" value="Grab All" style="background-color: #548602; color: #ffffff; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; margin: 3px; font-size: 15px; float: left" onclick="KAstart()">
-			<input type="button" value="Grab Range" style="background-color: #548602; color: #ffffff; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; margin: 3px; font-size: 15px; float: left" onclick="KAstart(document.getElementById('grabberFrom').value,document.getElementById('grabberTo').value)">
+			<input type="button" value="Grab All" style="background-color: #ecbe35; color: #000; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; margin: 3px; font-size: 15px; float: left" onclick="KAstart()">
+			<input type="button" value="Grab Range" style="background-color: #ecbe35; color: #000; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; margin: 3px; font-size: 15px; float: left" onclick="KAstart(document.getElementById('grabberFrom').value,document.getElementById('grabberTo').value)">
 		</div>
 	</div>
 </div>
@@ -90,17 +87,15 @@
 
 	//initially hidden HTML that is revealed and filled in by the grabber script
 	var linkListHTML = `<div class="bigBarContainer" id="grabberLinkContainer" style="display: none;">
-	<div class="barTitle">
+	<div class="barContent">
+	<div class="bigChar">
 		Extracted Links
 	</div>
-	<div class="barContent">
-		<div class="arrow-general">
-			&nbsp;</div>
 		<div id="grabberLinkDisplay"></div>
 		<div style="height: 28px;">
-			<input id="grabberGetStreamLinks" type="button" value="Get Stream Links" style="background-color: #548602; color: #ffffff; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; margin: 3px; font-size: 15px; float: left" onclick="KAstartStreamLinks()">
-			<input id="grabberShortenLinks" type="button" value="Shorten Links" style="background-color: #548602; color: #ffffff; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; font-size: 15px; margin: 3px; float: left" onclick="KAshortenLinks()">
-			<input id="grabberDownloadAll" type="button" value="Download All" style="background-color: #548602; color: #ffffff; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; font-size: 15px; margin: 3px; float: left" onclick="KAdownloadAll(1000)" hidden>
+			<input id="grabberGetStreamLinks" type="button" value="Get Stream Links" style="background-color: #ecbe35; color: #000; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; margin: 3px; font-size: 15px; float: left" onclick="KAstartStreamLinks()">
+			<input id="grabberShortenLinks" type="button" value="Shorten Links" style="background-color: #ecbe35; color: #000; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; font-size: 15px; margin: 3px; float: left" onclick="KAshortenLinks()">
+			<input id="grabberDownloadAll" type="button" value="Download All" style="background-color: #ecbe35; color: #000; border: none; padding: 5px; padding-left: 12px; padding-right: 12px; font-size: 15px; margin: 3px; float: left" onclick="KAdownloadAll(1000)" hidden>
 		</div>
 	</div>
 </div>`
@@ -108,7 +103,7 @@
 	//js injected into the page, this gets the links
 	var grabberScript = `//thorou
 var katable = {};
-var identifier = "kissanime.ru_DownloadData";
+var identifier = "kimcartoon.me_DownloadData";
 
 function KAsavetable() {
 	window.name = JSON.stringify(katable);
@@ -129,7 +124,7 @@ function KAloadtable() {
 }
 
 function KAstart(startnum, endnum) {
-	if (window.location.hostname != "kissanime.ru") {
+	if (window.location.hostname != "kimcartoon.me") {
 		return false;
 	}
 	katable = {};
@@ -147,45 +142,26 @@ function KAstart(startnum, endnum) {
 	katable.episodeListObject = document.getElementsByClassName("listing")[0].children[0].children; //html collection of all episode list objects
 	katable.linklist = []; //list for all episode links
 	katable.originalpage = window.location.href; //page to return to when finished
-	katable.status = "captcha"; //status string to indicate current task
+	katable.status = "getlink"; //status string to indicate current task
 	//katable.position = 0; //position in the episode selection
 	//katable.endnum = 999; //array number to end at
 	katable.finishedlist = []; //list of all extracted links
 	for (var i = 2; i < katable.episodeListObject.length; i++) {
-		katable.linklist.push(katable.episodeListObject[i].children[1].children[1].href);
+		katable.linklist.push(katable.episodeListObject[i].children[1].children[1].href + "&s=openload");
 	}
-	katable.linklist.reverse(); //kissanime lists episodes newest first, this reverses the list
+	katable.linklist.reverse(); //kimcartoon lists episodes newest first, this reverses the list
 	KAsavetable();
 	window.location.href = katable.linklist[katable.position]; //goto link selection
 }
 
-function KAwaitCaptcha() {
-	var barTitle = document.getElementsByClassName("barTitle");
-	if (barTitle.length == 0) {
-		KAchangeSource();
-	} else {
-		if (barTitle[0].innerText != "Are you human?") {
-			KAchangeSource();
-		}
-	}
-}
-
-function KAchangeSource() {
-	var selectServerList = document.getElementById("selectServer").children;
-	for (var i = 0; i < selectServerList.length; i++) {
-		if (selectServerList[i].innerText == "Openload") {
-			katable.status = "getlink";
-			KAsavetable();
-			window.location.href = selectServerList[i].value;
-		}
-	}
-}
-
 function KAgetLink() {
+	if (document.getElementsByClassName("title-list").length > 0 && document.getElementsByClassName("title-list")[0].innerText == "ARE YOU HUMAN?") {
+		return false; // stop, execution will pick back up when captcha is solved
+	}
 	var re = new RegExp('"https://openload.co/embed/(.*?)"');
 	var currentLink = document.body.innerHTML.match(re)[0];
 	katable.finishedlist.push(currentLink.split('"')[1]);
-	katable.status = "captcha";
+	katable.status = "getlink";
 	katable.position++;
 	if (katable.position >= katable.linklist.length || katable.position >= katable.endnum) {
 		katable.status = "finished";
@@ -215,7 +191,7 @@ function KAprintLinks() {
 		for (var i = 0; i < katable.streamlinklist.length; i++) {
 			string += "<a href='" + katable.streamlinklist[i] + "' download>" + katable.streamlinklist[i] + "</a><br>";
 		}
-		grabberLinkDisplay.innerHTML += "<hr><p style='font-size: 16px'>Stream Links</p>" + string + "</div><br>";
+		grabberLinkDisplay.innerHTML += "<hr style='border-color: #ecbe35;'><div class='bigChar'>Stream Links</div>" + string + "</div><br>";
 		document.getElementById("grabberGetStreamLinks").hidden = true;
 		document.getElementById("grabberDownloadAll").hidden = false;
 	}
@@ -274,9 +250,7 @@ function KAdownloadAll(delay) {
 
 function KAsiteload() {
 	if (KAloadtable()) { //check if data can be retrieved from window.name
-		if (katable.status == "captcha") { //check which state the script is supposed to be in and call the appropriate function
-			KAwaitCaptcha();
-		} else if (katable.status == "getlink") {
+		if (katable.status == "getlink") { //check which state the script is supposed to be in and call the appropriate function
 			KAgetLink();
 		} else if (katable.status == "getstreamlink") {
 			KAgetStreamLink();

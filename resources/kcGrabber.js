@@ -1,6 +1,6 @@
 //thorou
 var katable = {};
-var identifier = "kissanime.ru_DownloadData";
+var identifier = "kimcartoon.me_DownloadData";
 
 function KAsavetable() {
 	window.name = JSON.stringify(katable);
@@ -21,7 +21,7 @@ function KAloadtable() {
 }
 
 function KAstart(startnum, endnum) {
-	if (window.location.hostname != "kissanime.ru") {
+	if (window.location.hostname != "kimcartoon.me") {
 		return false;
 	}
 	katable = {};
@@ -39,45 +39,26 @@ function KAstart(startnum, endnum) {
 	katable.episodeListObject = document.getElementsByClassName("listing")[0].children[0].children; //html collection of all episode list objects
 	katable.linklist = []; //list for all episode links
 	katable.originalpage = window.location.href; //page to return to when finished
-	katable.status = "captcha"; //status string to indicate current task
+	katable.status = "getlink"; //status string to indicate current task
 	//katable.position = 0; //position in the episode selection
 	//katable.endnum = 999; //array number to end at
 	katable.finishedlist = []; //list of all extracted links
 	for (var i = 2; i < katable.episodeListObject.length; i++) {
-		katable.linklist.push(katable.episodeListObject[i].children[1].children[1].href);
+		katable.linklist.push(katable.episodeListObject[i].children[1].children[1].href + "&s=openload");
 	}
-	katable.linklist.reverse(); //kissanime lists episodes newest first, this reverses the list
+	katable.linklist.reverse(); //kimcartoon lists episodes newest first, this reverses the list
 	KAsavetable();
 	window.location.href = katable.linklist[katable.position]; //goto link selection
 }
 
-function KAwaitCaptcha() {
-	var barTitle = document.getElementsByClassName("barTitle");
-	if (barTitle.length == 0) {
-		KAchangeSource();
-	} else {
-		if (barTitle[0].innerText != "Are you human?") {
-			KAchangeSource();
-		}
-	}
-}
-
-function KAchangeSource() {
-	var selectServerList = document.getElementById("selectServer").children;
-	for (var i = 0; i < selectServerList.length; i++) {
-		if (selectServerList[i].innerText == "Openload") {
-			katable.status = "getlink";
-			KAsavetable();
-			window.location.href = selectServerList[i].value;
-		}
-	}
-}
-
 function KAgetLink() {
+	if (document.getElementsByClassName("title-list").length > 0 && document.getElementsByClassName("title-list")[0].innerText == "ARE YOU HUMAN?") {
+		return false; // stop, execution will pick back up when captcha is solved
+	}
 	var re = new RegExp('"https://openload.co/embed/(.*?)"');
 	var currentLink = document.body.innerHTML.match(re)[0];
 	katable.finishedlist.push(currentLink.split('"')[1]);
-	katable.status = "captcha";
+	katable.status = "getlink";
 	katable.position++;
 	if (katable.position >= katable.linklist.length || katable.position >= katable.endnum) {
 		katable.status = "finished";
@@ -107,7 +88,7 @@ function KAprintLinks() {
 		for (var i = 0; i < katable.streamlinklist.length; i++) {
 			string += "<a href='" + katable.streamlinklist[i] + "' download>" + katable.streamlinklist[i] + "</a><br>";
 		}
-		grabberLinkDisplay.innerHTML += "<hr><p style='font-size: 16px'>Stream Links</p>" + string + "</div><br>";
+		grabberLinkDisplay.innerHTML += "<hr style='border-color: #ecbe35;'><div class='bigChar'>Stream Links</div>" + string + "</div><br>";
 		document.getElementById("grabberGetStreamLinks").hidden = true;
 		document.getElementById("grabberDownloadAll").hidden = false;
 	}
@@ -166,9 +147,7 @@ function KAdownloadAll(delay) {
 
 function KAsiteload() {
 	if (KAloadtable()) { //check if data can be retrieved from window.name
-		if (katable.status == "captcha") { //check which state the script is supposed to be in and call the appropriate function
-			KAwaitCaptcha();
-		} else if (katable.status == "getlink") {
+		if (katable.status == "getlink") { //check which state the script is supposed to be in and call the appropriate function
 			KAgetLink();
 		} else if (katable.status == "getstreamlink") {
 			KAgetStreamLink();
