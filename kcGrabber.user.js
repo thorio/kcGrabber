@@ -5,8 +5,8 @@
 // @description		gets openload links from kimcartoon.me | based on my kissanime script, check it out!
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kaGrabber/
-// @updateURL			https://github.com/thorio/kaGrabber/raw/master/kaGrabber.user.js
-// @downloadURL		https://github.com/thorio/kaGrabber/raw/master/kaGrabber.user.js
+// @updateURL			https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
+// @downloadURL		https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
 // @match					http://kimcartoon.me/*
 // @match					https://openload.co/embed/*
 // ==/UserScript==
