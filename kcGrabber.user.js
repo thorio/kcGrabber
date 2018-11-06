@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
-// @version				1.0
+// @version				1.1
 // @description		gets openload links from kimcartoon.to | based on my kissanime script, check it out!
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kcGrabber/
