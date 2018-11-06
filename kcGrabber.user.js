@@ -2,12 +2,12 @@
 // @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
 // @version				1.0
-// @description		gets openload links from kimcartoon.me | based on my kissanime script, check it out!
+// @description		gets openload links from kimcartoon.to | based on my kissanime script, check it out!
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kcGrabber/
 // @updateURL			https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
 // @downloadURL		https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
-// @match					http://kimcartoon.me/*
+// @match					http://kimcartoon.to/*
 // @match					https://openload.co/embed/*
 // ==/UserScript==
 //
@@ -22,7 +22,7 @@
 
 	function inject() {
 		//add UI elements
-		if (window.location.href.substring(0, 29) == "http://kimcartoon.me/Cartoon/" && document.getElementsByClassName("bigBarContainer").length > 1) {
+		if (window.location.href.substring(0, 29) == "http://kimcartoon.to/Cartoon/" && document.getElementsByClassName("bigBarContainer").length > 1) {
 			//grabber widget
 			var grabberUIBox = document.createElement("div");
 			grabberUIBox.id = "grabberUIBox";
@@ -103,7 +103,7 @@
 	//js injected into the page, this gets the links
 	var grabberScript = `//thorou
 var katable = {};
-var identifier = "kimcartoon.me_DownloadData";
+var identifier = "kimcartoon.to_DownloadData";
 
 function KAsavetable() {
 	window.name = JSON.stringify(katable);
@@ -124,9 +124,6 @@ function KAloadtable() {
 }
 
 function KAstart(startnum, endnum) {
-	if (window.location.hostname != "kimcartoon.me") {
-		return false;
-	}
 	katable = {};
 	if (startnum === undefined) {
 		katable.position = 0;

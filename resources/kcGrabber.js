@@ -1,6 +1,6 @@
 //thorou
 var katable = {};
-var identifier = "kimcartoon.me_DownloadData";
+var identifier = "kimcartoon.to_DownloadData";
 
 function KAsavetable() {
 	window.name = JSON.stringify(katable);
@@ -21,9 +21,6 @@ function KAloadtable() {
 }
 
 function KAstart(startnum, endnum) {
-	if (window.location.hostname != "kimcartoon.me") {
-		return false;
-	}
 	katable = {};
 	if (startnum === undefined) {
 		katable.position = 0;
