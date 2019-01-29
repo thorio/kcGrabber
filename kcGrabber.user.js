@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
-// @version				1.1
+// @version				1.1.1
 // @description		gets openload links from kimcartoon.to | based on my kissanime script, check it out!
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kcGrabber/
 // @updateURL			https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
 // @downloadURL		https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
-// @match					http://kimcartoon.to/*
-// @match					https://openload.co/embed/*
+// @match					https://kimcartoon.to/*
+// @match					https://oload.club/embed/*
 // ==/UserScript==
 //
 //Copyright 2018 Leon Timm
@@ -22,7 +22,7 @@
 
 	function inject() {
 		//add UI elements
-		if (window.location.href.substring(0, 29) == "http://kimcartoon.to/Cartoon/" && document.getElementsByClassName("bigBarContainer").length > 1) {
+		if (window.location.host == "kimcartoon.to" && window.location.pathname.substr(0, 9) == "/Cartoon/"  && $(".title-list").length > 0) {
 			//grabber widget
 			var grabberUIBox = document.createElement("div");
 			grabberUIBox.id = "grabberUIBox";
@@ -152,8 +152,8 @@ function KAstart(startnum, endnum) {
 }
 
 function KAgetLink() {
-	if (document.getElementsByClassName("title-list").length > 0 && document.getElementsByClassName("title-list")[0].innerText == "ARE YOU HUMAN?") {
-		return false; // stop, execution will pick back up when captcha is solved
+	if (window.location.pathname == "/Special/AreYouHuman2") {
+		return false; // stop, captcha
 	}
 	var re = new RegExp('"https://openload.co/embed/(.*?)"');
 	var currentLink = document.body.innerHTML.match(re)[0];
@@ -173,11 +173,6 @@ function KAgetLink() {
 
 function KAprintLinks() {
 	var string = "";
-	for (var i = 0; i < katable.finishedlist.length; i++) { //string together all the links, seperated by spaces
-		string += katable.finishedlist[i] + " ";
-	}
-	console.log(string);
-	string = "";
 	for (var i = 0; i < katable.finishedlist.length; i++) { //string together all the links, seperated by newlines
 		string += katable.finishedlist[i] + String.fromCharCode(10);
 	}
@@ -203,7 +198,7 @@ function KAgetStreamLink() {
 	var re = new RegExp('"/stream/(.*?)"');
 	var streamLink = document.body.innerHTML.match(re)[0]; //get stream link
 	streamLink = streamLink.split('"')[1]; //remove quotes
-	streamLink = "https://openload.co" + streamLink;
+	streamLink = "https://oload.club" + streamLink;
 	if (streamLink.slice(-10) == "?mime=true") {
 		streamLink = streamLink.substr(0, streamLink.length - 10);
 	}
