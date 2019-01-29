@@ -95,7 +95,7 @@ function KAgetStreamLink() {
 	var re = new RegExp('"/stream/(.*?)"');
 	var streamLink = document.body.innerHTML.match(re)[0]; //get stream link
 	streamLink = streamLink.split('"')[1]; //remove quotes
-	streamLink = "https://oload.club" + streamLink;
+	streamLink = "https://openload.co" + streamLink;
 	if (streamLink.slice(-10) == "?mime=true") {
 		streamLink = streamLink.substr(0, streamLink.length - 10);
 	}
@@ -108,7 +108,7 @@ function KAgetStreamLink() {
 		window.location.href = katable.originalpage;
 	} else {
 		KAsavetable();
-		window.location.href = katable.finishedlist[katable.position];
+		window.location.href = katable.finishedlist[katable.position].replace("openload.co", "oload.club");
 	}
 }
 
@@ -117,7 +117,7 @@ function KAstartStreamLinks() {
 	katable.position = 0;
 	katable.status = "getstreamlink";
 	KAsavetable();
-	window.location = katable.finishedlist[katable.position];
+	window.location = katable.finishedlist[katable.position].replace("openload.co", "oload.club");
 }
 
 function KAshortenLinks() {

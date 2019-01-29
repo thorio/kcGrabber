@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
-// @version				1.1.1
+// @version				1.1.2
 // @description		gets openload links from kimcartoon.to | based on my kissanime script, check it out!
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kcGrabber/
@@ -9,6 +9,7 @@
 // @downloadURL		https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
 // @match					https://kimcartoon.to/*
 // @match					https://oload.club/embed/*
+// @noframes
 // ==/UserScript==
 //
 //Copyright 2018 Leon Timm
@@ -198,7 +199,7 @@ function KAgetStreamLink() {
 	var re = new RegExp('"/stream/(.*?)"');
 	var streamLink = document.body.innerHTML.match(re)[0]; //get stream link
 	streamLink = streamLink.split('"')[1]; //remove quotes
-	streamLink = "https://oload.club" + streamLink;
+	streamLink = "https://openload.co" + streamLink;
 	if (streamLink.slice(-10) == "?mime=true") {
 		streamLink = streamLink.substr(0, streamLink.length - 10);
 	}
@@ -211,7 +212,7 @@ function KAgetStreamLink() {
 		window.location.href = katable.originalpage;
 	} else {
 		KAsavetable();
-		window.location.href = katable.finishedlist[katable.position];
+		window.location.href = katable.finishedlist[katable.position].replace("openload.co", "oload.club");
 	}
 }
 
@@ -220,7 +221,7 @@ function KAstartStreamLinks() {
 	katable.position = 0;
 	katable.status = "getstreamlink";
 	KAsavetable();
-	window.location = katable.finishedlist[katable.position];
+	window.location = katable.finishedlist[katable.position].replace("openload.co", "oload.club");
 }
 
 function KAshortenLinks() {
