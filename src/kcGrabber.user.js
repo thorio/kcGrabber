@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
-// @version				1.1.2
-// @description		gets openload links from kimcartoon.to | based on my kissanime script, check it out!
+// @version				1.1.3
+// @description		deprecated, use KissGrabber instead
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kcGrabber/
 // @updateURL			https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
@@ -56,6 +56,10 @@
 				var addedHTML = '<input type="button" value="grab" style="background-color: #ecbe35; color: #000; border: none; cursor: pointer;" onclick="KAstart(' + (episodeCount - i + 2) + ',' + (episodeCount - i + 2) + ')">&nbsp;'
 				currentItem.innerHTML = addedHTML + currentItem.innerHTML;
 			}
+			
+			if (!localStorage["grabberClosedUpgradeNotice"]) {
+				$("#leftside").prepend(upgradeHTML);
+			}
 		}
 		var script = document.createElement("script");
 		script.type = "text/javascript";
@@ -72,6 +76,8 @@
 	//initially hidden HTML that is revealed and filled in by the grabber script
 	var linkListHTML = `[[[[linkList.html]]]]`
 
+	var upgradeHTML = `[[[[upgradeNotice.html]]]]`
+	
 	//js injected into the page, this gets the links
 	var grabberScript = `[[[[kcGrabber.js]]]]`
 

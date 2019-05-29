@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name					Kimcartoon Link Grabber
 // @namespace			http://thorou.bitballoon.com/
-// @version				1.1.2
-// @description		gets openload links from kimcartoon.to | based on my kissanime script, check it out!
+// @version				1.1.3
+// @description		deprecated, use KissGrabber instead
 // @author				Thorou
 // @homepageURL		https://github.com/thorio/kcGrabber/
 // @updateURL			https://github.com/thorio/kcGrabber/raw/master/kcGrabber.user.js
@@ -56,6 +56,10 @@
 				var addedHTML = '<input type="button" value="grab" style="background-color: #ecbe35; color: #000; border: none; cursor: pointer;" onclick="KAstart(' + (episodeCount - i + 2) + ',' + (episodeCount - i + 2) + ')">&nbsp;'
 				currentItem.innerHTML = addedHTML + currentItem.innerHTML;
 			}
+			
+			if (!localStorage["grabberClosedUpgradeNotice"]) {
+				$("#leftside").prepend(upgradeHTML);
+			}
 		}
 		var script = document.createElement("script");
 		script.type = "text/javascript";
@@ -101,6 +105,22 @@
 	</div>
 </div>`
 
+	var upgradeHTML = `<div class="bigBarContainer" id="grabberUpgradeNotice">
+	<div style="height: 20px; padding: 5px; padding-left: 10px;">
+		<div id="grabberLinkDisplayTitle" style="width: 80%; float: left; font-size: 20px; color: #ecc835;">
+		Good News!
+		</div>
+		<a style="float: right; cursor: pointer;" onclick="localStorage['grabberClosedUpgradeNotice'] = true; $('#grabberUpgradeNotice').remove();">
+			close &nbsp;
+		</a>
+	</div>
+	<div class="barContent">
+		There's a new version if this script available, featuring support for all servers instead of just openload, several export options and server availability!<br>
+		Upgrade <a href="https://greasyfork.org/en/scripts/383649-kissgrabber">here</a>.
+	</div>
+</div>
+`
+	
 	//js injected into the page, this gets the links
 	var grabberScript = `//thorou
 var katable = {};
